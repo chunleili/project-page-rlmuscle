@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning">
+  <meta name="description" content="An RL controller trained on a 1D Hill-type surrogate discovers per-muscle activations that track reference motions, driving a GPU multigrid XPBD simulator over a 194-muscle human body at 18 ms per frame.">
+  <meta name="keywords" content="muscle simulation, character animation, reinforcement learning, XPBD, multigrid, Hill-type muscle model, physics-based animation, GPU simulation">
+  <meta name="author" content="Chunlei Li, Siyuan Yu, Yang Gao, Shuai Li, Peng Yu, Aimin Hao, He Wang">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="VR Lab, Beihang University">
+  <meta property="og:title" content="RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning">
+  <meta property="og:description" content="An RL controller trained on a 1D Hill-type surrogate discovers per-muscle activations that track reference motions, driving a GPU multigrid XPBD simulator over a 194-muscle human body at 18 ms per frame.">
+  <meta property="og:url" content="https://chunleili.github.io/project-page-rlmuscle">
+  <meta property="og:image" content="https://chunleili.github.io/project-page-rlmuscle/static/images/teaser.png">
+  <meta property="og:image:alt" content="RLMuscle - muscle-driven character animation for walking, kicking, swimming and squatting">
+  <meta property="article:author" content="Chunlei Li">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="muscle simulation">
+  <meta property="article:tag" content="reinforcement learning">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning">
+  <meta name="twitter:description" content="An RL controller trained on a 1D Hill-type surrogate discovers per-muscle activations that track reference motions, driving a GPU multigrid XPBD simulator over a 194-muscle human body at 18 ms per frame.">
+  <meta name="twitter:image" content="https://chunleili.github.io/project-page-rlmuscle/static/images/teaser.png">
+  <meta name="twitter:image:alt" content="RLMuscle - muscle-driven character animation for walking, kicking, swimming and squatting">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning">
+  <meta name="citation_author" content="Li, Chunlei">
+  <meta name="citation_author" content="Yu, Siyuan">
+  <meta name="citation_author" content="Gao, Yang">
+  <meta name="citation_author" content="Li, Shuai">
+  <meta name="citation_author" content="Yu, Peng">
+  <meta name="citation_author" content="Hao, Aimin">
+  <meta name="citation_author" content="Wang, He">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_journal_title" content="IEEE Transactions on Visualization and Computer Graphics">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning</title>
+
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning",
+    "description": "An RL controller trained on a 1D Hill-type surrogate discovers per-muscle activations that track reference motions, driving a GPU multigrid XPBD simulator over a 194-muscle human body at 18 ms per frame.",
+    "author": [
+      { "@type": "Person", "name": "Chunlei Li", "affiliation": { "@type": "Organization", "name": "Beihang University" } },
+      { "@type": "Person", "name": "Siyuan Yu", "affiliation": { "@type": "Organization", "name": "Beihang University" } },
+      { "@type": "Person", "name": "Yang Gao", "affiliation": { "@type": "Organization", "name": "Beihang University" } },
+      { "@type": "Person", "name": "Shuai Li", "affiliation": { "@type": "Organization", "name": "Beihang University" } },
+      { "@type": "Person", "name": "Peng Yu", "affiliation": { "@type": "Organization", "name": "Beihang University" } },
+      { "@type": "Person", "name": "Aimin Hao", "affiliation": { "@type": "Organization", "name": "Beihang University" } },
+      { "@type": "Person", "name": "He Wang", "affiliation": { "@type": "Organization", "name": "University College London" } }
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "IEEE Transactions on Visualization and Computer Graphics"
+    },
+    "url": "https://chunleili.github.io/project-page-rlmuscle",
+    "image": "https://chunleili.github.io/project-page-rlmuscle/static/images/teaser.png",
+    "keywords": ["muscle simulation", "character animation", "reinforcement learning", "XPBD", "multigrid", "physics-based animation"],
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://chunleili.github.io/project-page-rlmuscle"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Physics-based character animation" },
+      { "@type": "Thing", "name": "Volumetric muscle simulation" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://chunleili.github.io" target="_blank">Chunlei Li</a>,</span>
+              <span class="author-block">
+                <a href="https://ysysimon.com" target="_blank">Siyuan Yu</a>,</span>
+              <span class="author-block">
+                <a>Yang Gao</a>,</span>
+              <span class="author-block">
+                <a>Shuai Li</a>,</span>
+              <span class="author-block">
+                <a>Peng Yu</a>,</span>
+              <span class="author-block">
+                <a>Aimin Hao</a>,</span>
+              <span class="author-block">
+                <a href="https://drhewang.com/" target="_blank">He Wang</a><sup>&dagger;</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://www.buaa.edu.cn" target="_blank">Beihang University</a>
+                <br> <a href="https://www.ucl.ac.uk" target="_blank">University College London</a>
+                <br>IEEE TVCG (under review)</span>
+              <span class="eql-cntrb"><small><br><sup>&dagger;</sup>Corresponding author</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-video"></i></span>
+                    <span>Video</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/chunleili/chunleili.github.io/releases/download/rlmuscle-assets/RLMuscle-slides.pptx" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-download"></i></span>
+                    <span>Slides</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="#BibTeX" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-quote-left"></i></span>
+                    <span>BibTeX</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="static/images/teaser.png" alt="Muscle-driven character animation for walking, kicking, swimming and squatting" style="width:100%;"/>
+        <h2 class="subtitle has-text-centered">
+          Automatically activated muscle-driven character animation for diverse motions: walking, kicking, swimming, and squatting.
+          Blue intensity shows the activation level (darker is higher); different shades of red distinguish muscle tendons from muscle bellies.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser -->
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Body deformation caused by muscle contraction and extension plays a vital role in visual realism in games and movies,
+              yet in most 3D animation pipelines artists have to manually specify the muscle activation, which is time-consuming and
+              lacks physical realism. To address this, we build a system in which an RL-based controller, trained on a 1D Hill-type
+              surrogate, discovers per-muscle activations that track reference motions without manual tuning; the same Hill-type
+              constitutive law then drives a 3D volumetric simulator to produce realistic muscle deformation. To achieve stable,
+              efficient, and realistic simulation, we solve Extended Position-Based Dynamics (XPBD) within a Geometric Multigrid (GMG)
+              scheme built on cascaded cages with barycentric-coordinate prolongation. Within this GPU-parallelized solver, we inject
+              the same Hill-type force-length law as an energy-based fiber constraint that turns per-fiber activation into realistic
+              muscle contraction and bulging. We demonstrate volumetric muscle simulation on a 194-muscle human body with a diverse set
+              of motions (walk, kick, swim, overhead-squat, etc.), simulating the full-body model at 18 ms per frame on a single RTX 4090.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!-- Video -->
+  <section class="hero is-small" id="video">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Video</h2>
+        <video poster="static/images/video-poster.png" id="paper-video" controls preload="metadata" style="width:100%;">
+          <source src="static/videos/RLMuscle-v2.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          Full supplementary video (9:20).
+          <a href="static/videos/RLMuscle-v2.mp4" download>Download MP4 (26&nbsp;MB)</a>
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End video -->
+
+  <!-- Pipeline -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Pipeline</h2>
+        <img src="static/images/pipeline.png" alt="Pipeline overview" style="width:100%;"/>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          RL imitation learning runs entirely on the 1D asset; retargeting and muscle mapping then lift its output to a 3D skeleton
+          and per-fiber activations, which the XPBD engine simulates in a single forward pass.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End pipeline -->
+
+  <!-- Results -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Fiber Constraint</h2>
+        <img src="static/images/fiber.png" alt="Effect of the four fiber constraints on the biceps" style="width:100%;"/>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          Effect of the four fiber constraints on the biceps. <em>Top:</em> deformed biceps at full activation (<em>a</em>&nbsp;=&nbsp;1),
+          colored by displacement from the no-fiber baseline. <em>Bottom:</em> axial length (left) and radial girth (right) vs. activation.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Comparison against Houdini's Otis Solver</h2>
+        <div class="has-text-centered">
+          <img src="static/images/vs-otis.png" alt="Comparison against Houdini's Otis solver" style="max-width:100%;"/>
+        </div>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          Comparison against Houdini's Otis solver on the same pose. <em>Left:</em> our result, colored by per-vertex distance (mm)
+          to the Otis reference (<em>right</em>); the distance stays within a few millimeters over most of the body.
+          Our solver runs at 18&nbsp;ms/frame against Otis's 20.8&nbsp;s/frame.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Multigrid</h2>
+        <img src="static/images/multigrid.png" alt="Full-body volumetric muscle with and without multigrid" style="width:100%;"/>
+        <img src="static/images/multigrid-converge.png" alt="Constraint residual and inverted-tetrahedron count" style="width:100%; margin-top:0.75rem;"/>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          Multigrid (MG) on the full-body volumetric muscle, with (left) and without (right). <em>Top:</em> deformation under the high
+          stiffness needed for realistic behavior. <em>Bottom:</em> constraint residual (left) and inverted-tetrahedron count per substep (right).
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Muscle&ndash;Bone Collision</h2>
+        <img src="static/images/collision.png" alt="Effect of collision handling" style="width:100%;"/>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          Effect of collision handling, with (<em>left</em>) and without (<em>right</em>). Red marks the vertices penetrating the bone.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End results -->
+
+  <!-- BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{Li2026RLMuscle,
+  title={RLMuscle: Muscle-Driven Character Animation via Reinforcement Learning},
+  author={Li, Chunlei and Yu, Siyuan and Gao, Yang and Li, Shuai and Yu, Peng and Hao, Aimin and Wang, He},
+  journal={IEEE Transactions on Visualization and Computer Graphics (under review)},
+  year={2026}
+}</code></pre>
+    </div>
+  </section>
+  <!-- End BibTex citation -->
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            Contact: <a>li_cl@foxmail.com</a>
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+              Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
