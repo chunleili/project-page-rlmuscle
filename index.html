@@ -276,8 +276,27 @@
   </section>
   <!-- End pipeline -->
 
-  <!-- Results -->
+  <!-- RL pipeline -->
   <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">RL Pipeline</h2>
+        <img src="static/images/rl-pipeline.png" alt="RL pipeline: policy network, muscle network, Stable PD, Hill model and PPO loop" style="width:100%;"/>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          The RL imitation learning stage opened up. A per-joint PD-target offset &Delta;&theta;<sub>t</sub> is mapped through
+          Stable&nbsp;PD and the muscle network to N<sub>m</sub>&nbsp;=&nbsp;284 activations
+          <strong>a</strong><sup>M</sup>&nbsp;&isin;&nbsp;[0,&nbsp;1]<sup>N<sub>m</sub></sup>. Both losses (dashed red) are evaluated
+          each iteration, so &pi;<sub>&phi;</sub> and &mu;<sub>&theta;</sub> are co-trained in a single PPO loop rather than learned
+          sequentially. The stage has two outputs: the 1D bone motion (blue) and the 1D muscle activation
+          <strong>a</strong><sup>M</sup> (red).
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End RL pipeline -->
+
+  <!-- Results -->
+  <section class="hero is-small is-light">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered">Fiber Constraint</h2>
@@ -290,7 +309,7 @@
     </div>
   </section>
 
-  <section class="hero is-small is-light">
+  <section class="hero is-small">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered">Comparison against Houdini's Otis Solver</h2>
@@ -306,7 +325,7 @@
     </div>
   </section>
 
-  <section class="hero is-small">
+  <section class="hero is-small is-light">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered">Multigrid</h2>
@@ -315,6 +334,21 @@
         <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
           Multigrid (MG) on the full-body volumetric muscle, with (left) and without (right). <em>Top:</em> deformation under the high
           stiffness needed for realistic behavior. <em>Bottom:</em> constraint residual (left) and inverted-tetrahedron count per substep (right).
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Squashed-Bunny Benchmark</h2>
+        <img src="static/images/bunny.png" alt="Squashed bunny recovered shape and per-frame timing, with and without multigrid" style="width:100%;"/>
+        <img src="static/images/bunny-converge.png" alt="Residual history against timesteps and wall-clock" style="width:100%; margin-top:0.75rem;"/>
+        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+          Squashed-bunny benchmark, with (red) vs. without (blue) multigrid (MG) under identical parameters. The bunny is squashed,
+          then released. <em>Top:</em> recovered shape at the same frame (53). <em>Middle:</em> per-frame timing.
+          <em>Bottom:</em> residual history against timesteps and wall-clock. MG converges much faster with a minor per-frame overhead.
         </h2>
       </div>
     </div>
