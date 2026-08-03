@@ -378,6 +378,38 @@
       </div>
     </div>
   </section>
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Performance</h2>
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <table class="table is-fullwidth is-hoverable">
+              <thead>
+                <tr><th>Quantity</th><th class="has-text-right">Value</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>GPU</td><td class="has-text-right">RTX&nbsp;4090</td></tr>
+                <tr><td>Features</td><td class="has-text-right">collision, multigrid, fiber</td></tr>
+                <tr><td>Substeps</td><td class="has-text-right">10</td></tr>
+                <tr><td>Timestep &Delta;t</td><td class="has-text-right">1/24&nbsp;s</td></tr>
+                <tr><td>Vertices</td><td class="has-text-right">172,717</td></tr>
+                <tr><td>Tetrahedra</td><td class="has-text-right">468,162</td></tr>
+                <tr><td>Simulation (no export)</td><td class="has-text-right">18&nbsp;ms/frame</td></tr>
+                <tr><td style="padding-left:2rem;">collision / other</td><td class="has-text-right">11&nbsp;ms / 7&nbsp;ms per frame</td></tr>
+                <tr><td>Simulation (USD export)</td><td class="has-text-right">32&nbsp;ms/frame</td></tr>
+                <tr><td>Peak GPU memory</td><td class="has-text-right">&approx;&nbsp;98&nbsp;MiB</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h2 class="subtitle has-text-centered">
+          Runtime of the full-body volumetric simulation over 50 frames.
+          Peak GPU memory excludes the &approx;&nbsp;386&nbsp;MiB CUDA/Warp context.
+        </h2>
+      </div>
+    </div>
+  </section>
   <!-- End results -->
 
   <!-- BibTex citation -->
